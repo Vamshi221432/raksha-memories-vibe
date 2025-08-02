@@ -8,35 +8,51 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Raksha Bandhan Festive Theme - Warm & Celebratory */
+    --background: 45 100% 98%;
+    --foreground: 15 25% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 15 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 15 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Festive Primary - Saffron Orange */
+    --primary: 25 100% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 35 100% 70%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Warm Secondary - Rose Gold */
+    --secondary: 340 60% 85%;
+    --secondary-foreground: 15 25% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted Warm Tones */
+    --muted: 45 50% 94%;
+    --muted-foreground: 25 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Festive Accent - Magenta */
+    --accent: 320 70% 65%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 45 30% 88%;
+    --input: 45 30% 92%;
+    --ring: 25 100% 60%;
 
-    --radius: 0.5rem;
+    /* Festive Gradients */
+    --gradient-festive: linear-gradient(135deg, hsl(25 100% 60%), hsl(340 70% 65%), hsl(50 100% 70%));
+    --gradient-warm: linear-gradient(45deg, hsl(25 100% 95%), hsl(340 60% 95%));
+    --gradient-glow: linear-gradient(135deg, hsl(25 100% 70% / 0.3), hsl(320 70% 65% / 0.3));
+
+    /* Animation Properties */
+    --float-duration: 6s;
+    --border-animation: 3s;
+    --glow-animation: 2s;
+
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +117,72 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    background: var(--gradient-warm);
+    min-height: 100vh;
   }
+}
+
+@layer components {
+  /* Festive Button Variants */
+  .btn-festive {
+    @apply bg-gradient-to-r from-primary to-accent text-primary-foreground;
+    @apply px-8 py-4 rounded-full font-semibold text-lg;
+    @apply shadow-lg hover:shadow-xl transform hover:scale-105;
+    @apply transition-all duration-300;
+    @apply border-2 border-transparent hover:border-white/30;
+  }
+
+  .btn-memories {
+    @apply bg-white/90 text-primary border-2 border-primary/30;
+    @apply px-6 py-3 rounded-lg font-medium;
+    @apply hover:bg-primary hover:text-primary-foreground;
+    @apply transition-all duration-300 transform hover:scale-105;
+    @apply shadow-md hover:shadow-lg;
+  }
+
+  /* Floating Animation */
+  .float-emoji {
+    @apply absolute text-4xl animate-bounce;
+    animation: float var(--float-duration) ease-in-out infinite;
+  }
+
+  /* Moving Border Animation */
+  .moving-border {
+    position: relative;
+    border: 3px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+                var(--gradient-festive) border-box;
+    animation: borderGlow var(--border-animation) ease-in-out infinite alternate;
+  }
+
+  /* Image Upload Box */
+  .upload-box {
+    @apply w-48 h-48 border-2 border-dashed border-primary/40;
+    @apply rounded-xl bg-white/50 backdrop-blur-sm;
+    @apply flex flex-col items-center justify-center;
+    @apply hover:border-primary hover:bg-white/70;
+    @apply transition-all duration-300 cursor-pointer;
+    @apply shadow-lg hover:shadow-xl transform hover:scale-105;
+  }
+
+  .upload-box.has-image {
+    @apply border-solid border-accent p-2;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-20px) rotate(5deg); }
+  50% { transform: translateY(-10px) rotate(0deg); }
+  75% { transform: translateY(-15px) rotate(-5deg); }
+}
+
+@keyframes borderGlow {
+  0% { box-shadow: 0 0 20px hsl(25 100% 60% / 0.4); }
+  100% { box-shadow: 0 0 40px hsl(320 70% 65% / 0.6), 0 0 60px hsl(50 100% 70% / 0.3); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
